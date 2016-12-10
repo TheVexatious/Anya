@@ -70,9 +70,17 @@ function sendHelpMessage(bot, msg, suffix, commands, config){
 				Then you can add this array into the message array below with some basic javascript knowledge like:
 				> replace line 75 with msgArray.push(`**Basic: **${basic}\n**ExampleTag :**${exampletag}\n**Other :**${other}`);
 				*/
+				var fun = [];
+				if(commands[cmd].tag == "Fun"){
+					fun.push(" "+info);
+				}
 			}
 		}
-		msgArray.push(`**Basic: **${basic}\n**Other :**${other}`);
+		if(other.length !== 0){
+			msgArray.push(`**Basic: **${basic}\n**Fun: **${fun}\n**Other :**${other}`);
+		}else{
+			msgArray.push(`**Basic: **${basic}\n**Fun: **${fun}`);
+		}
 		msgArray.push("\n**Tag Info**\n`Basic`: Most basic commands");
 		msgArray.push("\n\n**Want more information on the command?\nTry `>help <command-name>`**");
 		bot.getDMChannel(msg.author.id).then(c => {c.createMessage(msgArray.join("\n"))})

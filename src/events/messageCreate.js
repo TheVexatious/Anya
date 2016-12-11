@@ -3,7 +3,7 @@ var cleverbot = new Cleverbot();
 
 var lastExecTime = {};
 
-function execCommand(msg, cmd, suffix, bot, commands){
+function execCommand(msg, cmd, suffix, bot, commands, obj){
 	if(commands[cmd].hasOwnProperty("cooldown")){
         if(!lastExecTime[cmd]) lastExecTime[cmd] = [];
 		if(!lastExecTime[cmd].hasOwnProperty(msg.author.id))
@@ -36,7 +36,7 @@ function execCommand(msg, cmd, suffix, bot, commands){
 	}
 
 	try{
-		bot.commandsProcessed++;
+		obj.commands++;
 		commands[cmd].process(bot, msg, suffix);
 	}catch(e){
 		bot.createMessage("Command "+suffix+" failed to execute! Please inform the bot owner about this!");
@@ -80,7 +80,7 @@ function sendHelpMessage(bot, msg, suffix, commands, config){
 			if(commands[suffix]){
 				var cmand = commands[suffix];
 				var msgArr = [];
-				msgArr.push("**Command:** `>"+suffix+"`");
+				msgArr.push("**Command:** `"+config.prefix + suffix+"`");
 				msgArr.push("");
 				if(cmand.hasOwnProperty("usage")){
 					msgArr.push("**Usage:** `" + config.prefix + suffix+" "+cmand.usage+"`");
@@ -106,7 +106,7 @@ function sendHelpMessage(bot, msg, suffix, commands, config){
 }
 
 module.exports = {
-    execute(bot, msg, config, commands){
+    execute(bot, msg, config, commands, obj){
         if(!msg.channel.guild){
     		if(/(^https?:\/\/discord\.gg\/[A-Za-z0-9]+$|^https?:\/\/discordapp\.com\/invite\/[A-Za-z0-9]+$)/.test(msg.content)){
     			msg.channel.createMessage("**Please use this to invite me to your server: ** https://discordapp.com/oauth2/authorize?client_id="+config.clientID+"&scope=bot");
@@ -127,7 +127,7 @@ module.exports = {
 						bot.sendChannelTyping(msg.channel.id);
 						cleverbot.write(suffix, function(response){
 							bot.createMessage(msg.channel.id, response.message);
-							bot.cleverResponses++;
+							obj.cleverbots++;
 						});
 					});
                     if(msg.channel.guild) console.log(msg.channel.guild.name+" : #"+msg.channel.name+" : "+msg.author.username+" : "+msg.cleanContent.replace(/\n/g, " "));
@@ -142,7 +142,7 @@ module.exports = {
             }
 			if(commands[cmdtxt]) cmd = cmdtxt;
             if(commands[cmd]){
-                execCommand(msg, cmd, suffix, bot, commands);
+                execCommand(msg, cmd, suffix, bot, commands, obj);
             }
 
 			if(cmdtxt == "help" || cmdtxt == "halp"){

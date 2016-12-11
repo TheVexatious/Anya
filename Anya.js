@@ -34,7 +34,7 @@ function processEvent(val){
                     if(msg.channel.guild) console.log(msg.channel.guild.name+" : #"+msg.channel.name+" : "+msg.author.username+" : "+msg.cleanContent.replace(/\n/g, " "));
                 	else console.log(msg.author.username+" : "+msg.cleanContent.replace(/\n/g, " "));
                 });
-            } else events.messageCreate.execute(bot, msg, config, commands);
+            } else events.messageCreate.execute(bot, msg, config, commands, {commands: commandsProcessed, cleverbots: cleverResponses});
         });
     }
     if(val == "guildCreate"){

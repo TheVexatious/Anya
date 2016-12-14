@@ -1,5 +1,7 @@
 {
     "token": "TOKEN",
     "prefix": "~",
-    "cleverbot": true
+    "cleverbot": true,
+    "ownerId": "118547889931812868",
+    "googleApiKey": "",
 }

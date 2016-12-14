@@ -1,6 +1,6 @@
 {
   "name": "anya",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A multipurpose Discord bot made to provide tons of entertainment",
   "main": "Anya.js",
   "scripts": {
@@ -23,6 +23,7 @@
     "eris": "^0.5.1",
     "google": "^2.1.0",
     "request": "^2.79.0",
-    "require-reload": "^0.2.2"
+    "require-reload": "^0.2.2",
+    "youtube-node": "^1.3.0"
   }
 }

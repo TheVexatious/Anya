@@ -1,7 +1,7 @@
 module.exports = {
     description: "Sends the first search result from the mentioned terms",
     usage: "<search-terms>",
-    tag: "Fun"
+    tag: "Fun",
     cooldown: 5,
     process: function(bot,msg,suffix){
         var google = require("google");
